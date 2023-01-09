@@ -22,14 +22,14 @@ public class WeatherApiRestController {
         this.weatherService = weatherService;
     }
 
-    @PostMapping(path = "/", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Weather> addWeatherRecord(@RequestBody Weather record) {
         Weather savedRecord = weatherService.addWeatherRecord(record);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedRecord);
     }
 
-    @GetMapping(path = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Collection<Weather>> getWeatherRecords(
             @RequestParam(name = "date", required = false) String date,
             @RequestParam(name = "city", required = false) String city,
