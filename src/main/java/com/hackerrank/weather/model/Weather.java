@@ -1,10 +1,13 @@
 package com.hackerrank.weather.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Weather {
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
     private Date date;
 
@@ -13,6 +16,8 @@ public class Weather {
     private String city;
     private String state;
 
+    @ElementCollection
+    @CollectionTable(name = "my_list", joinColumns = @JoinColumn(name = "id"))
     private List<Double> temperatures;
 
     public Weather(Integer id, Date date, Float lat, Float lon, String city, String state, List<Double> temperatures) {
