@@ -5,7 +5,6 @@ import com.hackerrank.weather.model.WeatherEntity;
 
 import java.text.ParseException;
 import java.util.Collection;
-import java.util.Optional;
 
 public interface IWeatherService {
 
@@ -13,6 +12,6 @@ public interface IWeatherService {
 
     Weather getWeatherRecordById(Integer id);
 
-    Collection<WeatherEntity> findWeatherRecordsByParams(String date, String city, String sort) throws ParseException;
+    Collection<Weather> findWeatherRecordsByParams(String date, String city, String sort) throws ParseException;
 
 }

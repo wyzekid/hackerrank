@@ -9,11 +9,15 @@ public class WeatherEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
+    @Column
     private Date date;
-
+    @Column
     private Float lat;
+    @Column
     private Float lon;
+    @Column
     private String city;
+    @Column
     private String state;
 
     @ElementCollection

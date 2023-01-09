@@ -1,6 +1,6 @@
 package com.hackerrank.weather.service;
 
-import com.hackerrank.weather.WeatherConverter;
+import com.hackerrank.weather.utils.WeatherConverter;
 import com.hackerrank.weather.model.Weather;
 import com.hackerrank.weather.model.WeatherEntity;
 import com.hackerrank.weather.repository.WeatherRepository;
@@ -40,7 +40,7 @@ public class WeatherService implements IWeatherService {
     }
 
     @Override
-    public Collection<WeatherEntity> findWeatherRecordsByParams(String date, String city, String sort) throws ParseException {
+    public Collection<Weather> findWeatherRecordsByParams(String date, String city, String sort) throws ParseException {
         List<WeatherEntity> resultList;
 
         if (StringUtils.isEmpty(date)) {
@@ -62,7 +62,7 @@ public class WeatherService implements IWeatherService {
         }
         boolean sortOrderAsc = true;
         if (StringUtils.isEmpty(sort)) {
-            return resultList;
+            return WeatherConverter.toDto(resultList);
         } else if (sort.equals("-date")) {
             sortOrderAsc = false;
         }
@@ -98,7 +98,7 @@ public class WeatherService implements IWeatherService {
                 return id1.compareTo(id2);
             });
         }
-        return resultList;
+        return WeatherConverter.toDto(resultList);
     }
 
 }

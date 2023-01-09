@@ -1,7 +1,10 @@
-package com.hackerrank.weather;
+package com.hackerrank.weather.utils;
 
 import com.hackerrank.weather.model.Weather;
 import com.hackerrank.weather.model.WeatherEntity;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class WeatherConverter {
 
@@ -25,5 +28,9 @@ public class WeatherConverter {
         result.setState(weather.getState());
         result.setTemperatures(weather.getTemperatures());
         return result;
+    }
+
+    public static List<Weather> toDto(List<WeatherEntity> entities) {
+        return entities.stream().map(WeatherConverter::toDto).collect(Collectors.toList());
     }
 }

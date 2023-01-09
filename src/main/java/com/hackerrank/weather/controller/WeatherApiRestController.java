@@ -1,8 +1,6 @@
 package com.hackerrank.weather.controller;
 
-import com.hackerrank.weather.WeatherConverter;
 import com.hackerrank.weather.model.Weather;
-import com.hackerrank.weather.model.WeatherEntity;
 import com.hackerrank.weather.service.IWeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/weather")
@@ -37,8 +34,8 @@ public class WeatherApiRestController {
             @RequestParam(name = "date", required = false) String date,
             @RequestParam(name = "city", required = false) String city,
             @RequestParam(name = "sort", required = false) String sort) throws ParseException {
-        Collection<WeatherEntity> foundRecords = weatherService.findWeatherRecordsByParams(date, city, sort);
-        return ResponseEntity.ok(foundRecords.stream().map(WeatherConverter::toDto).collect(Collectors.toList()));
+        Collection<Weather> foundRecords = weatherService.findWeatherRecordsByParams(date, city, sort);
+        return ResponseEntity.ok(foundRecords);
     }
 
     @GetMapping(path="/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
