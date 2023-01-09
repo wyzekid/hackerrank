@@ -1,13 +1,14 @@
 package com.hackerrank.weather.service;
 
+import com.hackerrank.weather.WeatherConverter;
 import com.hackerrank.weather.model.Weather;
+import com.hackerrank.weather.model.WeatherEntity;
 import com.hackerrank.weather.repository.WeatherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.EntityManager;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -28,17 +29,19 @@ public class WeatherService implements IWeatherService {
 
     @Override
     public Weather addWeatherRecord(Weather weather) {
-        return weatherRepository.save(weather);
+        WeatherEntity saved = weatherRepository.save(WeatherConverter.toEntity(weather));
+        return WeatherConverter.toDto(saved);
     }
 
     @Override
-    public Optional<Weather> getWeatherRecordById(Integer id) {
-        return weatherRepository.findById(id);
+    public Weather getWeatherRecordById(Integer id) {
+        Optional<WeatherEntity> found = weatherRepository.findById(id);
+        return found.map(WeatherConverter::toDto).orElse(null);
     }
 
     @Override
-    public Collection<Weather> findWeatherRecordsByParams(String date, String city, String sort) throws ParseException {
-        List<Weather> resultList;
+    public Collection<WeatherEntity> findWeatherRecordsByParams(String date, String city, String sort) throws ParseException {
+        List<WeatherEntity> resultList;
 
         if (StringUtils.isEmpty(date)) {
             resultList = weatherRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
