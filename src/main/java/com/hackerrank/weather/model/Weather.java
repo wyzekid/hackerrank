@@ -1,5 +1,6 @@
 package com.hackerrank.weather.model;
 
+import javax.persistence.Entity;
 import java.util.Date;
 import java.util.List;
 

@@ -17,15 +17,12 @@ import java.util.stream.Collectors;
 public class WeatherService implements IWeatherService {
 
     private final WeatherRepository weatherRepository;
-    private final EntityManager entityManager;
-
     private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
 
     @Autowired
-    public WeatherService(WeatherRepository weatherRepository, EntityManager entityManager) {
+    public WeatherService(WeatherRepository weatherRepository) {
         this.weatherRepository = weatherRepository;
-        this.entityManager = entityManager;
     }
 
 
